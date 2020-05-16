@@ -1,0 +1,22 @@
+%body
+  %header.new-header
+    %h1
+      =render partial:"layouts/header_simple"
+  %h2 ログイン
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .field-first
+      = f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "メールアドレス", :class=> "input-email-for-login"
+    .field
+      = f.password_field :password, autocomplete: "current-password", :placeholder => "パスワード"
+      %a.forget-password ＞パスワードをお忘れの方
+    - if devise_mapping.rememberable?
+      .field-checkbox
+        = f.check_box :remember_me
+        %label{:for => "user_remember_me"} ログイン情報を記録する
+    .field
+      = f.submit "ログイン", :class=> "btn-next"
+    .field-no-account
+      %p 会員登録がまだの方はこちら
+      .btn-no-account
+        = link_to "新規会員登録", "sign_up", class: "btn-no-account"
+  = render partial: "layouts/footer_simple"
